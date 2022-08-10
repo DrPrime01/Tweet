@@ -1,61 +1,112 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import moment from 'moment';
 
-function Tweet() {
+function Tweet({tweet}) {
   return (
     <div className='tweet'>
-      <Avatar />
+      <Avatar hash = {tweet.gravatar}/>
       <div className='content'>
-        <NameWithHandle />
-        <Message />
-        <Buttons />
+        <NameWithHandle name = {tweet.author.name} handle = {tweet.author.handle}/><Time time = {tweet.timestamp}/>
+        <Message test = {tweet.message}/>
+        <div className='buttons'>
+          <CommentButton />
+          <LikeButton count = {tweet.likes}/>
+          <RetweetButton count={tweet.retweets}/>
+          <MoreOptionsButton />
+        </div>
       </div>
     </div>
   )
 }
 
-function Avatar() {
+function Avatar({hash}) {
+  let url = `https://gravatar.com/avatar/${hash}`
   return (
-    <img src='https://gravatar.com/avatar/nothing'
+    <img src= {url}
     className='avatar'
     alt='avatar' />
   )
 }
 
-function Message() {
+function Message({test}) {
   return (
     <div className='message'>
-      This is less than 140 characters
+      {test}
     </div>
   )
 }
 
-function NameWithHandle() {
+function NameWithHandle({author}) {
+  const {name, handle} = author;
   return (
     <div className='name-with-handle'>
-      <span className='name'>Your Name</span>
-      <span className='handle'>@yourhandle</span>
-      <Time/>
+      <span className='name'>{name}</span>
+      <span className='handle'>@{handle}</span>
     </div>
   )
 }
 
-function Buttons() {
+
+function Time({time}) {
+  const timeString = moment(time).fromNow();
   return (
-    <div className='buttons'>
-      <i className='fa fa-comment comment-btn' />
-      <i className='fa fa-retweet retweet-btn' />
-      <i className='fa fa-heart like-btn'/>
-      <i className='fa fa-ellipsis-h more-options-btn'/>
-    </div>
+    <span className='time'>{timeString}</span> 
   )
 }
 
-function Time() {
+function LikeButton({count}) {
   return (
-    <span className='time'>3h ago</span> 
+    <span className='likeButton'>
+      <i className='fa fa-heart like-btn' />
+      {count > 0 &&
+        <span className='like-count'>{count}</span>}
+    </span>
   )
 }
 
-ReactDOM.render(<Tweet />, document.querySelector("#root"))
+function CommentButton() {
+  return (
+    <i className='fa fa-comment comment-btn'/>
+  )
+}
+
+function RetweetButton({count}) {
+  return (
+    <span className='retweetButton'>
+      <i className='fa fa-retweet retweet-btn' />{getRetweetCount(count)}
+    </span>
+  )
+}
+
+function MoreOptionsButton() {
+  return (
+    <i className='fa fa-ellipsis-h more-options-btn'/>
+  )
+}
+
+function getRetweetCount(count) {
+  if (count > 0) {
+    return (
+      <span className='retweet-count'>{count}</span>
+    );
+  }
+  else {
+    return null;
+  }
+}
+
+let testTweet = {
+  message: "Something about cats",
+  gravatar: "xyz",
+  author: {
+    handle: "catperson",
+    name: "IAMA Cat Person"
+  },
+  likes: 2,
+  retweets: 0,
+  timestamp: "2022-08-10 14:50:15"
+}
+
+ReactDOM.render(<Tweet tweet = {testTweet}/>, document.querySelector("#root"))

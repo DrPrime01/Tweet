@@ -28,12 +28,24 @@
 }
 
 .buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  margin-left: 2px;
   color: #aab8c2;
   font-size: 1.4em;
   margin-top: 10px;
+}
+
+.reply-button, .retweetButton,
+.likeButton, .more-options-button {
+  width: 80px;
+  display: inline-block;
+}
+
+.like-count, .retweet-count {
+  position: relative;
+  bottom: 2px;
+  font-size: 13px;
+  margin-left: 6px;
+  font-weight: bold;
 }
 
 .time {
