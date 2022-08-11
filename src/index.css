@@ -27,25 +27,27 @@
   font-size: 13px;
 }
 
-.buttons {
-  margin-left: 2px;
-  color: #aab8c2;
-  font-size: 1.4em;
-  margin-top: 10px;
+.buttons { 
+  margin-top: 10px; 
+  margin-left: 2px; 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 1.4em; 
+  color: #aab8c2; 
 }
 
-.reply-button, .retweetButton,
-.likeButton, .more-options-button {
-  width: 80px;
-  display: inline-block;
+.reply-button, .retweetbutton, 
+.likebutton, .more-options-button { 
+  width: 80px; 
+  display: inline-block; 
 }
-
-.like-count, .retweet-count {
-  position: relative;
-  bottom: 2px;
-  font-size: 13px;
-  margin-left: 6px;
-  font-weight: bold;
+.like-count, .retweet-count { 
+  position: relative; 
+  bottom: 2px; 
+  font-size: 13px; 
+  margin-left: 6px; 
+  font-weight: bold; 
 }
 
 .time {
@@ -56,4 +58,9 @@
 .time::before {
   content: "\00b7";
   padding-right: 0.3em;
+}
+
+.name-time {
+  display: flex;
+  flex-direction: row;
 }
